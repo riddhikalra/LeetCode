@@ -1,0 +1,54 @@
+//MERGE SORT
+
+class Solution {
+    public int[] sortArray(int[] arr) {
+        int n=arr.length;
+         int[] merge=new int[n];
+        divide(arr,0,n-1,merge);
+        
+        return arr;
+    }
+    public void divide(int[] arr,int start,int end , int[] merge) //THIS FUNCTION DIVIDES ARRAY INTO SMALLER ELEMENTS
+    {   
+        if(end-start+1 <= 1)
+            return;
+        
+        int mid= start+(end-start)/2;
+        divide(arr,start,mid,merge);
+        divide(arr,mid+1,end,merge);
+        conquer(arr,start,mid,end,merge);
+    }
+    
+    public void conquer(int[] arr,int start,int mid,int end, int[] merge) // THIS SORTS THE SMALLER ELEMENTS
+    {  
+       
+        int ind1=start;
+        int ind2=mid+1;
+       
+        for(int i=start ; i<=end; i++) // COPYTING THE SORTED ELEMENTS TO ANOTHER ARRAY
+            {
+                merge[i]=arr[i];
+            }
+        
+        for(int x=start; x<=end; x++)
+        {
+            if(ind1 > mid)
+            {
+                arr[x]=merge[ind2++];
+               
+            }else if(ind2 > end)
+            {
+                arr[x]=merge[ind1++];
+               
+            }  
+            else if (merge[ind2] < merge[ind1]) 
+                arr[x] = merge[ind2++];
+            else 
+                arr[x] = merge[ind1++];
+        }
+        
+        
+        
+    }
+    
+}
